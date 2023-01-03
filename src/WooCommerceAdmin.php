@@ -71,14 +71,23 @@ class WooCommerceAdmin
      */
     public static function product_options()
     {
+        $manage_stock = get_post_meta(get_the_ID(), '_manage_stock', true);
         $schedule_mode = get_post_meta(get_the_ID(), 'wssmgws_schedule_mode', true);
 
+        $manage_stock_display = "style='display: none'";
         $display = "style='display: none'";
 
         if ($schedule_mode == 'yes') {
 
             $display = "style='display:block'";
         }
+
+        if ($manage_stock == 'yes') {
+
+            $manage_stock_display = "style='display:block'";
+        }
+
+        echo "<div class='wssmgws_enable_manage_stock' $manage_stock_display>";
 
         woocommerce_wp_checkbox(array(
             'id'      => 'wssmgws_schedule_mode',
@@ -152,6 +161,8 @@ class WooCommerceAdmin
             'type'    => 'number',
             'class'   => 'wssmgws_number_field',
         ));
+
+        echo "</div>";
 
         echo "</div>";
     }
