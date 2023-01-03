@@ -177,8 +177,14 @@ class WooCommerceAdmin
 
         if (isset($_POST['wssmgws_schedule_mode'])) {
 
+            $enable_manage_stock = sanitize_text_field($_POST['_manage_stock'] ?? 'no');
             $schedule_mode = sanitize_text_field($_POST['wssmgws_schedule_mode']);
             $daily_at = sanitize_text_field($_POST['wssmgws_daily_at']);
+
+            if ($enable_manage_stock == 'no') {
+
+                $schedule_mode = 'no';
+            }
 
             $monday_stock_quantity = (int) sanitize_text_field($_POST['wssmgws_monday_stock_quantity']);
             $tuesday_stock_quantity = (int) sanitize_text_field($_POST['wssmgws_tuesday_stock_quantity']);
